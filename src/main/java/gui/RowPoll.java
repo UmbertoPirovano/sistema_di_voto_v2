@@ -1,8 +1,6 @@
 /**
- * Le istanze di questa classe rappresentano una riga della tabella della schermata "PollSelection.fxml".
- * Conserva un riferimento all'oggetto Votazione dal quale viene creato, rende gli attributi di questo rappresentabili in forma tabellare
- * ed aggiunge i due tasti "info" e "prenota o vota" necessari rispettivamente a visualizzare i dettagli della votazione o a prenotarsi/votare
- * per essa.
+ * Classe wrapper per oggetti di tipo Poll. Conserva un'istanza dell'oggetto poll
+ * che confeziona e rende quest'ultimo rappresentabile in una TableView.
  */
 package gui;
 
@@ -165,17 +163,20 @@ public class RowPoll implements Comparable<RowPoll> {
 	private void handleAzioneVota() {
 		try {
 			checkAvailability();
-			showVoteInterface(p);
+			showVoteInterface();
 		} catch(Exception e) {
 			showErrorMessage(e.getMessage());
 		}
 	}
 	
-	private void showVoteInterface(Poll poll) {
-		Objects.requireNonNull(poll);
+	/**
+	 * Apre la schermata di voto per la votazione this.p .
+	 * @param poll
+	 */
+	private void showVoteInterface() {
 		try {
     		FXMLLoader loader = new FXMLLoader(getClass().getResource("ElectorVoteEditor.fxml"));
-    		ElectorVoteEditorController controller = new ElectorVoteEditorController(poll);
+    		ElectorVoteEditorController controller = new ElectorVoteEditorController(p);
     		loader.setController(controller);
     		Parent root = loader.load();
             Stage stage = new Stage();
@@ -188,6 +189,11 @@ public class RowPoll implements Comparable<RowPoll> {
 		}
 	}
 	
+	/**
+	 * Controlla che la votazione this.p sia disponibile per esprimere il voto.
+	 * Se è così non fa niente, altrimenti solleva un'eccezione.
+	 * @throws Exception
+	 */
 	private void checkAvailability() throws Exception {
 		if(!SystemEvote.getInstance().checkVoteAvailability(p, (Elector)SystemEvote.getInstance().getSession().getUser())) {
 			throw new Exception("Hai gia' votato per questa votazione!");
@@ -205,6 +211,10 @@ public class RowPoll implements Comparable<RowPoll> {
 		return p.getStartDate().compareTo(o.p.getStartDate());
 	}
 	
+	/**
+	 * Mostra una schermata di errore contenente la stringa s come messaggio.
+	 * @param s
+	 */
 	private void showErrorMessage(String s) {
 		Objects.requireNonNull(s);
 		String msg = "ERROR:\n\n";
@@ -225,6 +235,9 @@ public class RowPoll implements Comparable<RowPoll> {
 		}
 	}
 	
+	/**
+	 * Apre una schermata che mostra i risultati della votazione this.p .
+	 */
 	private void handleGetResults() {
 		try {
 			String results = SystemEvote.getInstance().getPollResults(p);
@@ -239,7 +252,6 @@ public class RowPoll implements Comparable<RowPoll> {
         	stage.show();
 		} catch (Exception e) {
 			showErrorMessage(e.getMessage());
-			e.printStackTrace();
 		}
 	}
 	
