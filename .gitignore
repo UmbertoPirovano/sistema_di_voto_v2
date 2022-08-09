@@ -1,2 +1,2 @@
 #Ignore target folder
-target/**
+target/**/*.class
