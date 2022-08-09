@@ -1,2 +1,4 @@
-#Ignore target folder
+#Ignore .class files
 *.class
+#Ignore .fxml files in target folder
+/target/classes/gui/*.fxml
