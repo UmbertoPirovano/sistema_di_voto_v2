@@ -2,9 +2,7 @@ package polls;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 import politics.Candidate;
@@ -128,71 +126,10 @@ public class PollCategorico extends Poll{
 	 */
 	private boolean checkVoteValidity(VoteCategorico v) {
 		//TODO: implementare
+		//Ricordarsi che v potrebbe contenere SCHEDA BIANCA che non risulterebbe
+		//nella lista di candidati
 		return true;
 	}
-
-	@Override
-	public String getResults() {
-		int totalVotes = 0;
-		Map<PoliticalEntity, Integer> results = new HashMap<PoliticalEntity, Integer>();
-		for(PoliticalEntity e : candidates) {
-			results.put(e, 0);
-		}
-		for(VoteCategorico v : votes) {
-			totalVotes += 1;
-			results.replace(v.party, results.get(v.party) + 1);
-		}
-		Party winningParty = getWinningParty(results);
-		Candidate winningCandidate = getWinningCandidate(results, winningParty);
-		
-		if(absoluteMajority && results.get(winningParty) < totalVotes/100*50 + 1) {
-			return "Maggioranza assoluta non raggiunta";
-		}
-		
-		String str = "Ha vinto il partito" + winningParty;
-		if(withPreferences && winningCandidate != null) {
-			str += " con il candidato " + winningCandidate;
-		}
-		return str;
-	}
-	
-	/**
-	 * Restituisce il partito che ha ricevuto pi� voti nella votazione this.
-	 * @param results: mappa contenente tutte le entit� politiche associate al numero di voti ricevuti
-	 * @return Un oggetto di tipo Party
-	 */
-	private Party getWinningParty(Map<PoliticalEntity, Integer> results) {
-		Party mostVoted = getParties().get(0);
-		for(Party p : getParties()) {
-			if(results.get(p) > results.get(mostVoted))
-				mostVoted = p;
-		}
-		return mostVoted;
-	}
-	
-	/**
-	 * Restituisce il candidato del partito 'party' che ha ricevuto pi� voti nella votazione this.
-	 * @param results: una mappa contenente l'associazione tra il partito e il numero di voti ricevuti
-	 * @param party: un oggetto di tipo Party
-	 * @return Un oggetto di tipo Candidate
-	 */
-	private Candidate getWinningCandidate(Map<PoliticalEntity, Integer> results, Party party) {
-		Candidate mostVoted = null;
-		for(Candidate c : getCandidates()) {
-			if(c.getParty().equals(party)) {
-				mostVoted = c;
-				break;
-			}
-		}
-		if(mostVoted == null) return mostVoted;
-		for(Candidate c : getCandidates()) {
-			if(c.getParty().equals(party) && results.get(c) > results.get(mostVoted)) {
-				mostVoted = c;
-			}
-		}
-		return mostVoted;
-	}
-	
 	
 	/**
 	 * Le istanze di questa classe rappresentano un voto per la votazione di tipo

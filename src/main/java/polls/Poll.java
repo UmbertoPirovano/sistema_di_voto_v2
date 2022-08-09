@@ -41,12 +41,6 @@ public abstract class Poll {
 	}
 	
 	/**
-	 * Restituisce i risultati della votazione rappresentata da this.
-	 * @return i risultati della votazione.
-	 */
-	public abstract String getResults();
-	
-	/**
 	 * Istanzia e restituisce un oggetto di tipo Voto per la votazione this creato in base alla
 	 * lista di PoliticalEntity fornita come argomento.
 	 * @param preferences: La lista di PoliticalEntity scelte.

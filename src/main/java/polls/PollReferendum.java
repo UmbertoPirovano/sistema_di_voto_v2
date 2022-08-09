@@ -47,24 +47,7 @@ public class PollReferendum extends Poll {
 		} else {
 			throw new IllegalArgumentException("Non e' possibile esprimere piu' di una preferenza.");
 		}
-	}
-	
-	@Override
-	public String getResults() {
-		int countYes = 0;
-		int countTotal = 0;
-		for(VoteReferendum v : votes) {
-			if(v.choice.getName().equals("Si'")) countYes++;
-			countTotal++;
-		}		
-		if(countTotal == 0) throw new IllegalArgumentException("Nessun voto conteggiato");
-		int quorumQuote = (45000000/100*50)+1;
-		if(quorum) {
-			if(countTotal < quorumQuote) return "Quorum non raggiunto";
-		}
-		return "yes (" + countYes/countTotal*100 + "), no (" + (countTotal-countYes)/countTotal*100 + ")";		
-	}
-	
+	}	
 	
 	/**
 	 * Oggetto necessario a rappresentare il voto per una votazione di tipo PollReferendum

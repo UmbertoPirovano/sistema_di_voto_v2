@@ -2,9 +2,7 @@ package polls;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 import politics.Party;
@@ -86,36 +84,6 @@ public class PollOrdinale extends Poll {
 		VoteOrdinale v = new VoteOrdinale(rankedCandidates);
 		//addVote(v);
 		return v;
-	}
-
-	@Override
-	/**
-	 * Il calcolo del voto viene effettuato assegnando un peso ad ogni posizione della scheda
-	 * dove viene indicato il voto.
-	 */
-	public String getResults() {
-		int countTotal = votes.size();
-		Map<PoliticalEntity, Integer> ranking = new HashMap<PoliticalEntity, Integer>();
-		for(VoteOrdinale v : votes) {
-			for(int i=0 ; i<v.rankedCandidates.size() ; i++) {
-				PoliticalEntity e = v.rankedCandidates.get(i);
-				int coeff = v.rankedCandidates.size()-i;	//peso da assegnare ad ogni voto
-				if(ranking.containsKey(e))
-					ranking.replace(e, ranking.get(e) + coeff);
-				else
-					ranking.put(e, coeff);
-			}
-		}
-		PoliticalEntity mostVoted = ranking.keySet().iterator().next();
-		for(PoliticalEntity e : ranking.keySet()) {
-			if(ranking.get(e) > ranking.get(mostVoted))
-				mostVoted = e;
-		}
-		
-		if(absoluteMajority && ranking.get(mostVoted) < countTotal/100*50+1) {
-			return "Maggioranza assoluta non raggiunta";
-		}
-		return mostVoted.toString();
 	}
 	
 	/**
