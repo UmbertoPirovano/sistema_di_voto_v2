@@ -85,6 +85,9 @@ public class SystemEvote implements SystemEvoteObservable {
 				throw new IllegalArgumentException("Nome già in uso: " + i.getName());
 			}
 		}
+		if(!Timestamp.from(Instant.now()).before(p.getStartDate())) {
+			throw new IllegalArgumentException("La data di inizio votazione deve essere successiva a quella attuale.");
+		}
 		PollDAOImpl.getInstance().addPoll(p);
 		refresh();
 	}
