@@ -2,6 +2,7 @@ package polls;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
@@ -44,15 +45,15 @@ public class PollCategorico extends Poll{
 	 * Restituisce una lista contenente tutte le entit� politiche candidate nella votazione this.
 	 * @return Una lista di oggetti PoliticalEntity
 	 */
-	public List<PoliticalEntity> getAllCandidates() {
-		return candidates;
+	public Iterator<PoliticalEntity> getAllCandidates() {
+		return candidates.iterator();
 	}
 	
 	/**
 	 * Restituisce la lista dei partiti candidati nella votazione this.
 	 * @return Una lista di oggetti Party
 	 */
-	public List<Party> getParties(){
+	public Iterator<Party> getParties(){
 		List<Party> party = new ArrayList<Party>();
 		for(PoliticalEntity e : candidates) {
 			if(e instanceof Party) {
@@ -60,14 +61,14 @@ public class PollCategorico extends Poll{
 				party.add(p);
 			}
 		}
-		return party;
+		return party.iterator();
 	}
 	
 	/**
 	 * Restituisce una lista dei politici candidati nella votazione this.
 	 * @return Una lista di oggetti Candidate
 	 */
-	public List<Candidate> getCandidates(){
+	public Iterator<Candidate> getCandidates(){
 		List<Candidate> cds = new ArrayList<Candidate>();
 		for(PoliticalEntity e : cds) {
 			if(e instanceof Candidate) {
@@ -75,7 +76,7 @@ public class PollCategorico extends Poll{
 				cds.add(c);
 			}
 		}
-		return cds;
+		return cds.iterator();
 	}
 	
 	/**
@@ -177,13 +178,13 @@ public class PollCategorico extends Poll{
 			}
 		}
 		
-		public List<PoliticalEntity> getPreference(){
+		public Iterator<PoliticalEntity> getPreference(){
 			List<PoliticalEntity> preferences = new ArrayList<PoliticalEntity>();
 			if(party != null) {
 				preferences.add(party);
 			}
 			preferences.addAll(candidates);
-			return preferences;
+			return preferences.iterator();
 		}
 		
 		@Override

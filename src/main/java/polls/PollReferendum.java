@@ -2,6 +2,7 @@ package polls;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
@@ -65,10 +66,10 @@ public class PollReferendum extends Poll {
 			}
 		}
 		
-		public List<PoliticalEntity> getPreference() {
+		public Iterator<PoliticalEntity> getPreference() {
 			List<PoliticalEntity> preference = new ArrayList<PoliticalEntity>();
 			preference.add(choice);
-			return preference;
+			return preference.iterator();
 		}
 		
 		@Override

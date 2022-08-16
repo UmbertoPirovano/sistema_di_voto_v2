@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
@@ -244,10 +245,10 @@ public class PollDAOImpl implements PollDAO {
 		Objects.requireNonNull(v);
 		PreparedStatement st = null;
 		try {
-			if(!containsPolitic(p, v.getPreference().get(0))) {
+			if(!containsPolitic(p, v.getPreference().next())) {
 				st = connection.prepareStatement("INSERT INTO vote(poll, party, count)  VALUES (?,?,?);");
 				st.setString(1, p.getName());
-				String preference = ((Party) v.getPreference().get(0)).getName();
+				String preference = ((Party) v.getPreference().next()).getName();
 				st.setString(2, preference);
 				st.setInt(3, 1);
 				st.executeUpdate();
@@ -255,7 +256,7 @@ public class PollDAOImpl implements PollDAO {
 				st = connection.prepareStatement("UPDATE vote SET count = count+1"
 						+ " WHERE poll= BINARY ? AND party = BINARY ? AND name = BINARY ? AND surname = BINARY ?;");
 				st.setString(1, p.getName());
-				Party preference = (Party) v.getPreference().get(0);
+				Party preference = (Party) v.getPreference().next();
 				st.setString(2, preference.getName());
 				st.setString(3, "");
 				st.setString(4, "");
@@ -275,13 +276,15 @@ public class PollDAOImpl implements PollDAO {
 		Objects.requireNonNull(p);
 		Objects.requireNonNull(v);
 		PreparedStatement st = null;
+		Iterator<PoliticalEntity> it = v.getPreference();
+		int i = 0;
 		//Operazione da ripetere per ogni candidato segnato nella scheda
-		for(int i=0 ; i < v.getPreference().size() ; i++) {
+		while(it.hasNext()) {
 			try {
 				String party = "";
 				String name = "";
 				String surname = "";
-				PoliticalEntity e = v.getPreference().get(i);
+				PoliticalEntity e = it.next();
 				if(e instanceof Party) {
 					party = ((Party) e).getName();
 				} else if(e instanceof Candidate) {
@@ -292,7 +295,7 @@ public class PollDAOImpl implements PollDAO {
 				} else {
 					throw new IllegalArgumentException("Tipo di candidato non supportato.");
 				}
-				if(!containsPolitic(p, v.getPreference().get(0))) {
+				if(!containsPolitic(p, v.getPreference().next())) {
 					st = connection.prepareStatement("INSERT INTO vote(poll, party, name, surname, ranking, count)  VALUES (?,?,?,?,?,?);");
 					st.setString(1, p.getName());					
 					st.setString(2, party);
@@ -314,6 +317,7 @@ public class PollDAOImpl implements PollDAO {
 			} catch(SQLException se) {
 				se.printStackTrace();
 			}
+			i++;
 		}
 	}
 	
@@ -326,13 +330,15 @@ public class PollDAOImpl implements PollDAO {
 		Objects.requireNonNull(p);
 		Objects.requireNonNull(v);
 		PreparedStatement st = null;
+		Iterator<PoliticalEntity> it = v.getPreference();
+		
 		//Operazione da ripetere per ogni candidato segnato nella scheda
-		for(int i=0 ; i < v.getPreference().size() ; i++) {
+		while(it.hasNext()) {
 			try {
 				String party = "";
 				String name = "";
 				String surname = "";
-				PoliticalEntity e = v.getPreference().get(i);
+				PoliticalEntity e = it.next();
 				if(e instanceof Party) {
 					party = ((Party) e).getName();
 				} else if(e instanceof Candidate) {
@@ -343,7 +349,7 @@ public class PollDAOImpl implements PollDAO {
 				} else {
 					throw new IllegalArgumentException("Tipo di candidato non supportato.");
 				}
-				if(!containsPolitic(p, v.getPreference().get(0))) {
+				if(!containsPolitic(p, v.getPreference().next())) {
 					st = connection.prepareStatement("INSERT INTO vote(poll, party, name, surname, ranking, count)  VALUES (?,?,?,?,?,?);");
 					st.setString(1, p.getName());					
 					st.setString(2, party);
@@ -509,11 +515,11 @@ public class PollDAOImpl implements PollDAO {
 		}
 	}
 	
-	public void addPolitic(Poll p, List<PoliticalEntity> e) {
+	public void addPolitic(Poll p, Iterator<PoliticalEntity> e) {
 		Objects.requireNonNull(p);
 		Objects.requireNonNull(e);
-		for(PoliticalEntity c : e) {
-			addPolitic(p, c);
+		while(e.hasNext()) {
+			addPolitic(p, e.next());
 		}
 	}
 	
