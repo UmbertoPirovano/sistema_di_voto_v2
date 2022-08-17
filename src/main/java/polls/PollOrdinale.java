@@ -2,7 +2,6 @@ package polls;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
@@ -69,8 +68,8 @@ public class PollOrdinale extends Poll {
 	 * Restituisce la lista di candidati della votazione this.
 	 * @return una lista di oggetti PoliticalEntity
 	 */
-	public Iterator<PoliticalEntity> getCandidates(){
-		return candidates.iterator();
+	public List<PoliticalEntity> getCandidates(){
+		return candidates;
 	}
 	
 	public Vote vote(List<PoliticalEntity> rankedCandidates) {
@@ -100,8 +99,8 @@ public class PollOrdinale extends Poll {
 			}
 		}
 		
-		public Iterator<PoliticalEntity> getPreference(){
-			return rankedCandidates.iterator();
+		public List<PoliticalEntity> getPreference(){
+			return rankedCandidates;
 		}
 		
 		@Override

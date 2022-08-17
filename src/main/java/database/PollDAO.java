@@ -1,6 +1,5 @@
 package database;
 
-import java.util.Iterator;
 import java.util.List;
 
 import politics.PoliticalEntity;
@@ -64,7 +63,7 @@ public interface PollDAO {
 	 * @param p: la votazione a cui ci stiamo riferendo
 	 * @param e: la lista di entit� politiche da aggiungere
 	 */
-	public void addPolitic(Poll p, Iterator<PoliticalEntity> e);
+	public void addPolitic(Poll p, List<PoliticalEntity> e);
 	
 	/**
 	 * Restituisce una stringa che rappresenta i risultati della votazione p.

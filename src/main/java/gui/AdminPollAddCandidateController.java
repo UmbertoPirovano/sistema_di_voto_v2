@@ -2,7 +2,6 @@ package gui;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -105,24 +104,12 @@ public class AdminPollAddCandidateController implements Initializable {
     	if(poll instanceof PollOrdinale) {
     		PollOrdinale p = ((PollOrdinale)poll);
     		p.addCandidate(candidates);
-    		int size = 0;
-    		Iterator<PoliticalEntity> it = p.getCandidates();
-    		while(it.hasNext()) {
-    			size++;
-    			it.next();
-    		}
-    		System.out.println("Adding tot candidates to PollOrdinale: " + size);
+    		System.out.println("Adding tot candidates to PollOrdinale: " + p.getCandidates().size());
     		SystemEvote.getInstance().addPoll(p);
     	} else if(poll instanceof PollCategorico){
-    		PollCategorico p = ((PollCategorico) poll);
+    		PollCategorico p = ((PollCategorico)poll); 
     		p.addCandidate(candidates);
-    		int size = 0;
-    		Iterator<Candidate> it = p.getCandidates();
-    		while(it.hasNext()) {
-    			size++;
-    			it.next();
-    		}
-    		System.out.println("Adding tot candidates to PollCategorico: " + size);
+    		System.out.println("Adding tot candidates to PollCategorico: " + p.getCandidates().size());
     		SystemEvote.getInstance().addPoll(p);
     	}
     	confirmButton.getScene().getWindow().hide();    	

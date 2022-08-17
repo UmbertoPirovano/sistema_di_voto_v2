@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -93,14 +92,14 @@ public class ElectorVoteEditorController implements Initializable{
 		populateList();
 	}
 	
-	private Iterator<PoliticalEntity> loadCandidates() {
+	private List<PoliticalEntity> loadCandidates() {
 		if(p instanceof PollReferendum) {
 			Party yes = new Party("Si'");
 			Party no = new Party("No");
 			List<PoliticalEntity> politics = new ArrayList<PoliticalEntity>();
 			politics.add(yes);
 			politics.add(no);
-			return politics.iterator();
+			return politics;
 		} else if(p instanceof PollOrdinale) {
 			return ((PollOrdinale)p).getCandidates();
 		} else if(p instanceof PollCategorico) {
@@ -111,13 +110,7 @@ public class ElectorVoteEditorController implements Initializable{
 	}
 	
 	private void populateList() {
-		List<PoliticalEntity> politics = new ArrayList<>();
-		Iterator<PoliticalEntity> it = loadCandidates();
-		
-		while(it.hasNext()) {
-			politics.add(it.next());
-		}
-		
+		List<PoliticalEntity> politics = loadCandidates();
 		for(PoliticalEntity e : politics) {
 			try {
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("NodePoliticalEntity.fxml"));
