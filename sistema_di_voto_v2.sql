@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Ago 08, 2022 alle 16:15
+-- Creato il: Set 06, 2022 alle 11:45
 -- Versione del server: 10.4.22-MariaDB
--- Versione PHP: 8.1.2
+-- Versione PHP: 8.0.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -41,6 +41,18 @@ CREATE TABLE `candidate` (
 INSERT INTO `candidate` (`poll`, `name`, `surname`, `party`) VALUES
 ('Test categorico', 'Enrico', 'Letta', 'PD'),
 ('Test categorico', 'Matteo', 'Salvini', 'LN');
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `log`
+--
+
+CREATE TABLE `log` (
+  `user` varchar(30) NOT NULL,
+  `azione` varchar(30) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -107,6 +119,7 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`username`, `password`, `name`, `surname`, `admin`) VALUES
 ('admin', 'c7ad44cbad762a5da0a452f9e854fdc1e0e7a52a38015f23f3eab1d80b931dd472634dfac71cd34ebc35d16ab7fb8a90c81f975113d6c7538dc69dd8de9077ec', NULL, NULL, 1),
+('maros', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86', 'Mario', 'Rossi', 0),
 ('mattiagaravaglia', 'd404559f602eab6fd602ac7680dacbfaadd13630335e951f097af3900e9de176b6db28512f2e000b9d04fba5133e8b1c6e8df59db3a8ab9d60be4b97cc9e81db', 'Mattia', 'Garavaglia', 0),
 ('umbertopirovano', 'd404559f602eab6fd602ac7680dacbfaadd13630335e951f097af3900e9de176b6db28512f2e000b9d04fba5133e8b1c6e8df59db3a8ab9d60be4b97cc9e81db', 'Umberto', 'Pirovano', 0);
 
@@ -147,6 +160,12 @@ ALTER TABLE `candidate`
   ADD PRIMARY KEY (`poll`,`name`,`surname`,`party`);
 
 --
+-- Indici per le tabelle `log`
+--
+ALTER TABLE `log`
+  ADD PRIMARY KEY (`user`,`timestamp`);
+
+--
 -- Indici per le tabelle `poll`
 --
 ALTER TABLE `poll`
@@ -169,6 +188,16 @@ ALTER TABLE `vote`
 --
 ALTER TABLE `vote_register`
   ADD PRIMARY KEY (`poll`,`user`);
+
+--
+-- Limiti per le tabelle scaricate
+--
+
+--
+-- Limiti per la tabella `log`
+--
+ALTER TABLE `log`
+  ADD CONSTRAINT `fk_user` FOREIGN KEY (`user`) REFERENCES `user` (`username`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
