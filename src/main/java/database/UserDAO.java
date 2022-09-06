@@ -19,7 +19,7 @@ public interface UserDAO {
 	public User getUser(String username);
 	
 	/**
-	 * Registra l'utente rappresentato dall'oggetto User u se esso non è già presente.
+	 * Registra l'utente rappresentato dall'oggetto User u se esso non ï¿½ giï¿½ presente.
 	 * @param u: un oggetto di tipo User
 	 * @param password: la password scelta per l'utente u
 	 */
@@ -46,5 +46,12 @@ public interface UserDAO {
 	 * @return Un'istanza di User che rappresenta l'utente identificato da username+password.
 	 */
 	public User login(String username, String password);
+	
+	/**
+	 * Invia al database le informazioni necessarie a creare una nuova entry per la tabella dei log.
+	 * @param user Un utente del sistema.
+	 * @param azione Una breve descrizione dell'azione svolta da user.
+	 */
+	public void addLogEntry(User user, String azione);
 	
 }

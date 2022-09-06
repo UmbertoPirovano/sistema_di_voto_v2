@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -154,6 +155,29 @@ public class UserDAOImpl implements UserDAO {
 		if(checkCredentials(username, password))
 			return getUser(username);
 		throw new IllegalArgumentException("Username o password errati.");
+	}
+
+	@Override
+	public void addLogEntry(User user, String azione) {
+		Objects.requireNonNull(user);
+		Objects.requireNonNull(azione);
+		
+		List<User> users = getAll();
+		for(User u : users) {
+			if(u.getUsername().equals(user.getUsername())) {
+				try {
+					PreparedStatement st = connection.prepareStatement("INSERT INTO log(user, azione, timestamp) VALUES (?,?,?);");
+					st.setString(1, user.getUsername());
+					st.setString(2, azione);
+					st.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
+				}catch(SQLException e) {
+					e.printStackTrace();
+				}
+				return;
+			}
+		}
+		
+		throw new IllegalArgumentException("Username non trovato");
 	}
 
 }
