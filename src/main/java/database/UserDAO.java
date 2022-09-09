@@ -1,6 +1,9 @@
 package database;
 
 import java.util.List;
+
+import polls.Poll;
+import users.Administrator;
 import users.User;
 
 public interface UserDAO {
@@ -48,10 +51,26 @@ public interface UserDAO {
 	public User login(String username, String password);
 	
 	/**
-	 * Invia al database le informazioni necessarie a creare una nuova entry per la tabella dei log.
+	 * Invia al database le informazioni necessarie a creare una nuova entry di login o logout per la tabella dei log.
 	 * @param user Un utente del sistema.
 	 * @param azione Una breve descrizione dell'azione svolta da user.
 	 */
 	public void addLogEntry(User user, String azione);
+	
+	/**
+	 * Invia al database le informazioni necessarie a creare una nuova entry di gestione di un utente per la tabella dei log.
+	 * @param user Un amministratore del sistema.
+	 * @param azione Una breve descrizione dell'azione svolta da user.
+	 * @param other L'utente che viene gestito da user.
+	 */
+	public void addLogEntry(Administrator user, String azione, User other);
+	
+	/**
+	 * Invia al database le informazioni necessarie a creare una nuova entry di interazione con una votazione per la tabella dei log.
+	 * @param user Un utente del sistema.
+	 * @param azione Una breve descrizione dell'azione svolta da user.
+	 * @param p La votazione con cui interagisce user.
+	 */
+	public void addLogEntry(User user, String azione, Poll p);
 	
 }

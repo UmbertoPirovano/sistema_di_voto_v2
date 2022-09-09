@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import polls.Poll;
 import users.Administrator;
 import users.Elector;
 import users.User;
@@ -170,6 +171,7 @@ public class UserDAOImpl implements UserDAO {
 					st.setString(1, user.getUsername());
 					st.setString(2, azione);
 					st.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
+					st.executeUpdate();
 				}catch(SQLException e) {
 					e.printStackTrace();
 				}
@@ -178,6 +180,58 @@ public class UserDAOImpl implements UserDAO {
 		}
 		
 		throw new IllegalArgumentException("Username non trovato");
+	}
+
+	@Override
+	public void addLogEntry(Administrator user, String azione, User other) {
+		Objects.requireNonNull(user);
+		Objects.requireNonNull(azione);
+		
+		List<User> users = getAll();
+		for(User u : users) {
+			if(u.getUsername().equals(user.getUsername())) {
+				try {
+					PreparedStatement st = connection.prepareStatement("INSERT INTO log(user, azione, timestamp, destinatario_azione) VALUES (?,?,?,?);");
+					st.setString(1, user.getUsername());
+					st.setString(2, azione);
+					st.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
+					st.setString(4, other.getUsername());
+					st.executeUpdate();
+				}catch(SQLException e) {
+					e.printStackTrace();
+				}
+				return;
+			}
+		}
+		
+		throw new IllegalArgumentException("Username non trovato");
+		
+	}
+
+	@Override
+	public void addLogEntry(User user, String azione, Poll p) {
+		Objects.requireNonNull(user);
+		Objects.requireNonNull(azione);
+		
+		List<User> users = getAll();
+		for(User u : users) {
+			if(u.getUsername().equals(user.getUsername())) {
+				try {
+					PreparedStatement st = connection.prepareStatement("INSERT INTO log(user, azione, timestamp, destinatario_azione) VALUES (?,?,?,?);");
+					st.setString(1, user.getUsername());
+					st.setString(2, azione);
+					st.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
+					st.setString(4, p.getName());
+					st.executeUpdate();
+				}catch(SQLException e) {
+					e.printStackTrace();
+				}
+				return;
+			}
+		}
+		
+		throw new IllegalArgumentException("Username non trovato");
+		
 	}
 
 }

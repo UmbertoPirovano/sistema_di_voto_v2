@@ -64,6 +64,7 @@ public class SystemEvote implements SystemEvoteObservable {
 		}
 		UserDAOImpl.getInstance().addUser(u, password);
 		refresh();
+		UserDAOImpl.getInstance().addLogEntry((Administrator) session.getUser(), "AGGIUNGI UTENTE",u);
 	}
 	
 	public void deleteUser(User u) {
@@ -73,6 +74,8 @@ public class SystemEvote implements SystemEvoteObservable {
 		}
 		UserDAOImpl.getInstance().deleteUser(u);
 		refresh();
+		UserDAOImpl.getInstance().addLogEntry((Administrator) session.getUser(), "ELIMINA UTENTE",u);
+		
 	}
 	
 	public void addPoll(Poll p) throws IllegalArgumentException {
@@ -89,6 +92,7 @@ public class SystemEvote implements SystemEvoteObservable {
 			throw new IllegalArgumentException("La data di inizio votazione deve essere successiva a quella attuale.");
 		}
 		PollDAOImpl.getInstance().addPoll(p);
+		UserDAOImpl.getInstance().addLogEntry(session.getUser(), "CREA VOTAZIONE",p);
 		refresh();
 	}
 	
@@ -101,12 +105,14 @@ public class SystemEvote implements SystemEvoteObservable {
 		}
 		PollDAOImpl.getInstance().removePoll(p);
 		refresh();
+		UserDAOImpl.getInstance().addLogEntry(session.getUser(), "ELIMINA VOTAZIONE",p);
 	}
 	
 	public void sendVote(Poll p, Vote v) {
 		Objects.requireNonNull(p);
 		Objects.requireNonNull(v);
 		PollDAOImpl.getInstance().sendVote(p, session.getUser(), v);
+		UserDAOImpl.getInstance().addLogEntry(session.getUser(), "VOTA",p);
 	}
 	
 	/**
@@ -135,12 +141,14 @@ public class SystemEvote implements SystemEvoteObservable {
 		Objects.requireNonNull(password);
 		User u = UserDAOImpl.getInstance().login(username, password);
 		startSession(u);
+		UserDAOImpl.getInstance().addLogEntry(u, "LOGIN");
 	}	
 	
 	/**
 	 * Esegue il logout eliminando la sessione attualmente attiva.
 	 */
 	public void logout() {
+		UserDAOImpl.getInstance().addLogEntry(session.getUser(), "LOGOUT");
 		session = null;
 	}
 	
