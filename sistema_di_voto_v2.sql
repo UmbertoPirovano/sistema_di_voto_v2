@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Set 06, 2022 alle 11:45
+-- Creato il: Set 09, 2022 alle 15:28
 -- Versione del server: 10.4.22-MariaDB
 -- Versione PHP: 8.0.13
 
@@ -51,8 +51,34 @@ INSERT INTO `candidate` (`poll`, `name`, `surname`, `party`) VALUES
 CREATE TABLE `log` (
   `user` varchar(30) NOT NULL,
   `azione` varchar(30) NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `destinatario_azione` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dump dei dati per la tabella `log`
+--
+
+INSERT INTO `log` (`user`, `azione`, `timestamp`, `destinatario_azione`) VALUES
+('admin', 'LOGIN', '2022-09-09 08:01:13', NULL),
+('admin', 'CREA VOTAZIONE', '2022-09-09 08:02:31', 'Test log'),
+('admin', 'LOGOUT', '2022-09-09 08:03:02', NULL),
+('admin', 'LOGIN', '2022-09-09 08:03:47', NULL),
+('admin', 'ELIMINA VOTAZIONE', '2022-09-09 08:03:56', 'Test log'),
+('admin', 'LOGOUT', '2022-09-09 08:04:21', NULL),
+('admin', 'LOGIN', '2022-09-09 08:39:59', NULL),
+('admin', 'LOGOUT', '2022-09-09 08:40:18', NULL),
+('admin', 'LOGIN', '2022-09-09 13:14:34', NULL),
+('admin', 'LOGOUT', '2022-09-09 13:15:10', NULL),
+('admin', 'LOGIN', '2022-09-09 13:17:00', NULL),
+('admin', 'LOGOUT', '2022-09-09 13:17:14', NULL),
+('admin', 'LOGIN', '2022-09-09 13:23:14', NULL),
+('admin', 'LOGOUT', '2022-09-09 13:23:45', NULL),
+('admin', 'LOGIN', '2022-09-09 13:24:59', NULL),
+('admin', 'LOGOUT', '2022-09-09 13:26:15', NULL),
+('maros', 'LOGIN', '2022-09-09 07:58:58', NULL),
+('maros', 'VOTA', '2022-09-09 08:00:00', 'Test categorico'),
+('maros', 'LOGOUT', '2022-09-09 08:00:14', NULL);
 
 -- --------------------------------------------------------
 
@@ -138,6 +164,13 @@ CREATE TABLE `vote` (
   `count` int(10) UNSIGNED NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dump dei dati per la tabella `vote`
+--
+
+INSERT INTO `vote` (`poll`, `party`, `name`, `surname`, `ranking`, `count`) VALUES
+('Test categorico', 'LN', 'Matteo', 'Salvini', 0, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -148,6 +181,13 @@ CREATE TABLE `vote_register` (
   `poll` varchar(30) NOT NULL,
   `user` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dump dei dati per la tabella `vote_register`
+--
+
+INSERT INTO `vote_register` (`poll`, `user`) VALUES
+('Test categorico', 'maros');
 
 --
 -- Indici per le tabelle scaricate
