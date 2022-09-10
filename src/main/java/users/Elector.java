@@ -15,7 +15,6 @@ public class Elector extends User {
 		super(username, password);
 		this.name = Objects.requireNonNull(name);
 		this.surname = Objects.requireNonNull(surname);
-		assert validateFiscalCode(username, name, surname);
 	}
 	
 	public String getName() {
@@ -24,17 +23,6 @@ public class Elector extends User {
 	
 	public String getSurname() {
 		return surname;
-	}
-	
-	/**
-	 * Controlla che l'argomento 'username' combaci con un valido codice fiscale per
-	 * l'elettore this.
-	 * @param username
-	 * @return
-	 */
-	private boolean validateFiscalCode(String username, String name, String surname) {
-		//TODO: controllare che il codice fiscale sia valido
-		return true;
 	}
 	
 	@Override
