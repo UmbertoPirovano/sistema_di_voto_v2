@@ -15,10 +15,12 @@ gui\AdminPollAddCandidateController.class
 gui\ElectorVoteReviewController.class
 gui\ElectorVoteEditorController$1.class
 users\User.class
+gui\AdminUserSelectTypeController.class
 gui\AdminPollEditorController.class
 gui\RowPoliticalEntity.class
 gui\PollDescriptionController.class
 database\PollDAO.class
+gui\AdminElectorEditorController.class
 gui\AdminUserListController.class
 Main.class
 polls\PollReferendum$VoteReferendum.class
@@ -36,6 +38,7 @@ polls\PollCategorico.class
 system\SessionAdministrator.class
 system\SessionElector.class
 database\DatabaseConnection.class
+gui\AdminAdministratorEditorController.class
 politics\Candidate.class
 gui\LoginWindowController.class
 system\SystemEvoteObservable.class

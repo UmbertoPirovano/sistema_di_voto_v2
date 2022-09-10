@@ -1,5 +1,6 @@
 C:\Users\Mattia\git\sistema_di_voto_v2\src\main\java\system\SessionElector.java
 C:\Users\Mattia\git\sistema_di_voto_v2\src\main\java\Main.java
+C:\Users\Mattia\git\sistema_di_voto_v2\src\main\java\gui\AdminElectorEditorController.java
 C:\Users\Mattia\git\sistema_di_voto_v2\src\main\java\users\User.java
 C:\Users\Mattia\git\sistema_di_voto_v2\src\main\java\system\Session.java
 C:\Users\Mattia\git\sistema_di_voto_v2\src\main\java\database\PollDAO.java
@@ -17,6 +18,7 @@ C:\Users\Mattia\git\sistema_di_voto_v2\src\main\java\database\UserDAO.java
 C:\Users\Mattia\git\sistema_di_voto_v2\src\main\java\polls\Poll.java
 C:\Users\Mattia\git\sistema_di_voto_v2\src\main\java\gui\AdminPollAddCandidateController.java
 C:\Users\Mattia\git\sistema_di_voto_v2\src\main\java\polls\PollCategorico.java
+C:\Users\Mattia\git\sistema_di_voto_v2\src\main\java\gui\AdminAdministratorEditorController.java
 C:\Users\Mattia\git\sistema_di_voto_v2\src\main\java\system\SessionAdministrator.java
 C:\Users\Mattia\git\sistema_di_voto_v2\src\main\java\gui\AdminPollListController.java
 C:\Users\Mattia\git\sistema_di_voto_v2\src\main\java\politics\Candidate.java
@@ -31,6 +33,7 @@ C:\Users\Mattia\git\sistema_di_voto_v2\src\main\java\database\PollDAOImpl.java
 C:\Users\Mattia\git\sistema_di_voto_v2\src\main\java\gui\AdminUserEditorController.java
 C:\Users\Mattia\git\sistema_di_voto_v2\src\main\java\gui\RowPoll.java
 C:\Users\Mattia\git\sistema_di_voto_v2\src\main\java\gui\ElectorVoteReviewController.java
+C:\Users\Mattia\git\sistema_di_voto_v2\src\main\java\gui\AdminUserSelectTypeController.java
 C:\Users\Mattia\git\sistema_di_voto_v2\src\main\java\gui\AdminMenuController.java
 C:\Users\Mattia\git\sistema_di_voto_v2\src\main\java\system\SystemEvoteObserver.java
 C:\Users\Mattia\git\sistema_di_voto_v2\src\main\java\gui\AdminPollEditorController.java
