@@ -98,7 +98,7 @@ public class AdminUserListController implements Initializable, SystemEvoteObserv
     @FXML
     void showUserEditor(ActionEvent event) {
     	try {
-    		Parent root = FXMLLoader.load(getClass().getResource("AdminUserEditor.fxml"));
+    		Parent root = FXMLLoader.load(getClass().getResource("AdminUserSelectType.fxml"));
             Stage stage = new Stage();
         	stage.setTitle("Sistema di voto elettronico - User editor");
         	stage.setScene(new Scene(root, 500, 400));
