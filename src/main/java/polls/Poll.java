@@ -7,11 +7,13 @@ import java.util.Objects;
 import politics.PoliticalEntity;
 
 public abstract class Poll {
+	//@ invariant name != null && description != null && startDate != null && endDate != null;
 	private final String name;
 	private String description;
 	private Timestamp startDate;
 	private Timestamp endDate;
 	
+	//@ requires name != null && description != null && startDate != null && endDate != null;
 	public Poll(String name, String description, Timestamp startDate, Timestamp endDate) {
 		this.name = Objects.requireNonNull(name);
 		this.description = Objects.requireNonNull(description);

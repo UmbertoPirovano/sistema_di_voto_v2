@@ -9,7 +9,7 @@ import politics.Party;
 import politics.PoliticalEntity;
 
 public class PollReferendum extends Poll {
-	
+	//@ invariant votes != null && (\forall int j; j >= 0 && j < votes.length; votes[j] != null);
 	private boolean quorum;
 	private List<VoteReferendum> votes;
 	
@@ -29,11 +29,13 @@ public class PollReferendum extends Poll {
 		return quorum;
 	}
 	
+	//@requires v != null
 	public void addVote(VoteReferendum v) {
 		Objects.requireNonNull(v);
 		votes.add(v);
 	}	
 	
+	//@ requires preferences != null && (\forall int i; i >= 0 && i < preferences.length; preferences[i] != null)
 	public Vote vote(List<PoliticalEntity> preferences) {
 		if(preferences.size() == 0) {
 			return new VoteReferendum(null);	//Caso scheda bianca

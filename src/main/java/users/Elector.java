@@ -8,9 +8,11 @@ package users;
 import java.util.Objects;
 
 public class Elector extends User {
+	//@ invariant name != null && surname != null;
 	private final String name;
 	private final String surname;
 	
+	//@ requires name != null && surname != null
 	public Elector(String username, String password, String name, String surname) {
 		super(username, password);
 		this.name = Objects.requireNonNull(name);

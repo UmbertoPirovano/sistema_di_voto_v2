@@ -9,7 +9,9 @@ import politics.Party;
 import politics.PoliticalEntity;
 
 public class PollOrdinale extends Poll {
-	
+	/*@ invariant candidates != null && votes != null && (\forall int i; i >= 0 && i < candidates.length; candidates[i] != null) &&
+	 @ (\forall int j; j >= 0 && j < votes.length; votes[j] != null) 
+	 @*/
 	private boolean absoluteMajority;
 	private List<PoliticalEntity> candidates;
 	private List<VoteOrdinale> votes;
@@ -32,6 +34,7 @@ public class PollOrdinale extends Poll {
 		return absoluteMajority;
 	}
 	
+	//@ requires v != null;
 	/**
 	 * Aggiunge alla lista di voti registrati il voto v fornito come argomento.
 	 * @param v: un oggetto di tipo VoteOrdinale
@@ -41,6 +44,7 @@ public class PollOrdinale extends Poll {
 		votes.add(v);
 	}
 	
+	//@ requires e != null;
 	/**
 	 * Aggiunge alla lista di candidati della votazione this il candidato fornito
 	 * come argomento se questo non � gi� presente, altrimenti non fa nulla.
@@ -52,6 +56,7 @@ public class PollOrdinale extends Poll {
 		candidates.add(e);
 	}
 	
+	//@ requires listOfCandidates != null && (\forall int i; i >= 0 && i < listOfCandidates.length; listOfCandidates[i] != null)
 	/**
 	 * Aggiunge ai candidati gi� registrati nella votazione this quelli presenti
 	 * nella lista fornita come argomento escludendo quelli gi� presenti.
@@ -72,6 +77,7 @@ public class PollOrdinale extends Poll {
 		return candidates;
 	}
 	
+	//@ requires rankedCandidates != null && (\forall int i; i >= 0 && i < rankedCandidates.length; rankedCandidates[i] != null)
 	public Vote vote(List<PoliticalEntity> rankedCandidates) {
 		Objects.requireNonNull(rankedCandidates);
 		if(rankedCandidates.size() != candidates.size()) {

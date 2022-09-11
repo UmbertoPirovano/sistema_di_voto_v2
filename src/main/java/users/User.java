@@ -1,5 +1,5 @@
 /**
- * Questa classe astratta rappresenta un utente del sistema. L'utente è caratterizzato
+ * Questa classe astratta rappresenta un utente del sistema. L'utente ï¿½ caratterizzato
  * da uno username ed una password.
  */
 package users;
@@ -7,9 +7,11 @@ package users;
 import java.util.Objects;
 
 public abstract class User {
+	//@ invariant username != null && password != null;
 	private final String username;
-	private String password;
+	private /*@ spec_public @*/ String password;
 	
+	//@ requires username != null && password != null;
 	public User(String username, String password) {
 		this.username = Objects.requireNonNull(username);
 		this.password = Objects.requireNonNull(password);
@@ -19,17 +21,22 @@ public abstract class User {
 		return username;
 	}
 	
+	
+	//@ requires pwd != null;
+	//@ ensures ((password == pwd) ==> (\result == true)); 
 	/**
 	 * Controlla che la stringa fornita in argomento corrisponda con la password
 	 * usata da this.
 	 * @param pwd
-	 * @return True se la password è corretta, False altrimenti.
+	 * @return True se la password ï¿½ corretta, False altrimenti.
 	 */
 	private boolean checkPassword(String pwd) {
 		Objects.requireNonNull(pwd);
 		return this.password.equals(pwd);
 	}
 	
+	//@ requires newPassword != null && (oldPassword == password);
+	//@ ensures password = newPassword;
 	/**
 	 * Metodo che permette di cambiare la password associata all'utente this.
 	 * @param oldPassword La password attualmente in uso

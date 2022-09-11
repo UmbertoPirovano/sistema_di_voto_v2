@@ -3,12 +3,15 @@ package politics;
 import java.util.Objects;
 
 public class Party implements PoliticalEntity {
-	private final String name;
+	//@ invariant name != null;
+	private /*@ spec_public @*/ final String name;
 	
+	//@ require name != null
 	public Party(String name) {
 		this.name = Objects.requireNonNull(name);
 	}
 	
+	//@ ensures \result == name; 
 	public String getName() {
 		return name;
 	}

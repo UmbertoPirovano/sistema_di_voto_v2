@@ -3,16 +3,19 @@ package politics;
 import java.util.Objects;
 
 public class Candidate implements PoliticalEntity{
+	//@ invariant name != null && surname != null && party != null;
 	private final String name;
 	private final String surname;
-	private Party party;
+	private /*@ spec_public @*/ Party party;
 	
+	//@ requires name != null && surname != null;
 	public Candidate(String name, String surname) {
 		this.name = Objects.requireNonNull(name);
 		this.surname = Objects.requireNonNull(surname);
 		this.party = null;
 	}
 	
+	//@ requires name != null && surname != null && party != null;
 	public Candidate(String name, String surname, Party party) {
 		this.name = Objects.requireNonNull(name);
 		this.surname = Objects.requireNonNull(surname);
@@ -31,7 +34,10 @@ public class Candidate implements PoliticalEntity{
 		return party;
 	}
 	
+	//@ requires p != null;
+	//@ ensures party == p;
 	public void setParty(Party p) {
+		Objects.requireNonNull(p);
 		this.party = p;
 	}	
 	

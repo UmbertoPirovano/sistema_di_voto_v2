@@ -10,7 +10,9 @@ import politics.Party;
 import politics.PoliticalEntity;
 
 public class PollCategorico extends Poll{
-	
+	/*@ invariant candidates != null && votes != null && (\forall int i; i >= 0 && i < candidates.length; candidates[i] != null) &&
+	 @ (\forall int j; j >= 0 && j < votes.length; votes[j] != null) 
+	 @*/
 	private boolean absoluteMajority;
 	private boolean withPreferences;
 	private List<PoliticalEntity> candidates;
@@ -78,6 +80,7 @@ public class PollCategorico extends Poll{
 		return cds;
 	}
 	
+	//@ requires v != null;
 	/**
 	 * Aggiunge alla lista di voti registrati il voto v fornito come argomento.
 	 * @param v: un oggetto di tipo VoteCategorico
@@ -87,6 +90,7 @@ public class PollCategorico extends Poll{
 		votes.add(v);
 	}
 	
+	//@ requires e != null;
 	/**
 	 * Aggiunge alla lista di candidati della votazione this il candidato fornito
 	 * come argomento se questo non � gi� presente, altrimenti non fa nulla.
@@ -98,6 +102,7 @@ public class PollCategorico extends Poll{
 		candidates.add(e);
 	}
 	
+	//@ requires listOfCandidates != null && (\forall int i; i >= 0 && i < listOfCandidates.length; listOfCandidates[i] != null)
 	/**
 	 * Aggiunge ai candidati gi� registrati nella votazione this quelli presenti
 	 * nella lista fornita come argomento escludendo quelli gi� presenti.
@@ -110,12 +115,14 @@ public class PollCategorico extends Poll{
 		}
 	}	
 	
+	//@ requires preferences != null && (\forall int i; i >= 0 && i < preferences.length; preferences[i] != null)
 	public Vote vote(List<PoliticalEntity> preferences) {
 		Objects.requireNonNull(preferences);
 		VoteCategorico v = new VoteCategorico(preferences);
 		checkVoteValidity(v);
 		return v;
 	}
+	
 	
 	/**
 	 * Controlla che l'oggetto VoteCategorico v sia compatibile con la votazione this
