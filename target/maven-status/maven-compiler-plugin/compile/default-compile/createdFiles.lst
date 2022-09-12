@@ -18,6 +18,7 @@ users\User.class
 gui\AdminUserSelectTypeController.class
 gui\AdminPollEditorController.class
 gui\RowPoliticalEntity.class
+gui\RowLog.class
 gui\PollDescriptionController.class
 database\PollDAO.class
 gui\AdminElectorEditorController.class
@@ -39,6 +40,7 @@ system\SessionAdministrator.class
 system\SessionElector.class
 database\DatabaseConnection.class
 gui\AdminAdministratorEditorController.class
+gui\AdminLogListController.class
 politics\Candidate.class
 gui\LoginWindowController.class
 system\SystemEvoteObservable.class
