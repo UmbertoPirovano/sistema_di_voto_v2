@@ -233,5 +233,39 @@ public class UserDAOImpl implements UserDAO {
 		throw new IllegalArgumentException("Username non trovato");
 		
 	}
+	
+	public List<String> getLog(){
+		try {
+			List<String> logs = new ArrayList<>();
+			PreparedStatement st = connection.prepareStatement("SELECT * FROM log ORDER BY timestamp DESC LIMIT 10;");
+			ResultSet res = st.executeQuery();
+			while(res.next()) {
+				String log=res.getTimestamp(3) +": Utente " + res.getString(1);
+				
+				switch(res.getString(2)) {
+				case "AGGIUNGE UTENTE": log+=" " + res.getString(2).toLowerCase() + " " + res.getString(4);
+				break;
+				case "ELIMINA UTENTE": log+=" " + res.getString(2).toLowerCase() + " " + res.getString(4);
+				break;
+				case "CREA VOTAZIONE": log+=" " + res.getString(2).toLowerCase() + " " + res.getString(4);
+				break;
+				case "ELIMINA VOTAZIONE": log+=" " + res.getString(2).toLowerCase() + " " + res.getString(4);
+				break;
+				case "VOTA": log+=" " + res.getString(2).toLowerCase();
+				break;
+				case "LOGIN": log+=" effettua login";
+				break;
+				case "LOGOUT": log+=" effettua logout";
+				break;
+				default: throw new IllegalArgumentException("Tipo di azione non riconosciuta");
+				}
+				logs.add(log);
+			}
+			return logs;
+		} catch (SQLException se) {
+			se.printStackTrace();
+		}
+		return new ArrayList<String>();
+	}
 
 }

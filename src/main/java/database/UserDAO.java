@@ -73,4 +73,10 @@ public interface UserDAO {
 	 */
 	public void addLogEntry(User user, String azione, Poll p);
 	
+	/**
+	 * Restituisce una lista di stringhe contenenti i primi dieci log log reperiti dal database. I log vengono ordinati in ordine decrescente
+	 * rispetto al loro timestamp.
+	 * @return La lista di stringhe log.
+	 */
+	public List<String> getLog();
 }
