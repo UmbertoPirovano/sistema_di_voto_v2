@@ -11,7 +11,7 @@ class AdministratorTest {
 		Administrator a1 = new Administrator("admin","admin");
 		Administrator a2 = new Administrator("admin","admin");
 		
-		assertTrue(a1.equals(a2));
+		assertEquals(a1,a2);
 	}
 	
 	@Test
@@ -19,6 +19,6 @@ class AdministratorTest {
 		Administrator a1 = new Administrator("admin","admin");
 		Administrator a2 = new Administrator("admin","test");
 		
-		assertFalse(a1.equals(a2));
+		assertNotEquals(a1,a2);
 	}
 }

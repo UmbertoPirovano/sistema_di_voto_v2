@@ -10,7 +10,7 @@ class ElectorTest {
 	public void testNotEquals() {
 		Elector e1 = new Elector("mattia","mattia","Mattia","Garavaglia");
 		Elector e2 = new Elector("umberto","umberto","Umberto","Pirovano");
-		assertFalse(e1.equals(e2));
+		assertNotEquals(e1,e2);
 	}
 	
 	@Test
@@ -18,7 +18,7 @@ class ElectorTest {
 		Elector e1 = new Elector("mattia","mattia","Mattia","Garavaglia");
 		Elector e2 = new Elector("mattia","test","Mattia","Garavaglia");
 		
-		assertTrue(e1.equals(e2));
+		assertEquals(e1,e2);
 	}
 
 }
