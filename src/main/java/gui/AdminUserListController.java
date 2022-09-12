@@ -124,7 +124,7 @@ public class AdminUserListController implements Initializable, SystemEvoteObserv
 	}
 
 	@Override
-	public void update(List<User> users, List<Poll> polls) {
+	public void update(List<User> users, List<Poll> polls, List<String> logs) {
 		Objects.requireNonNull(users);
 		this.users = users;
 		System.out.println("Local user list updated. Size: " + this.users.size());

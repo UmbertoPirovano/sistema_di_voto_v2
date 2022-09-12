@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AdminMenuController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AdminMenuController">
    <top>
       <AnchorPane prefHeight="110.0" prefWidth="200.0" style="-fx-background-color: lightblue;" BorderPane.alignment="CENTER">
          <children>
@@ -40,12 +40,17 @@
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="userButton" layoutX="424.0" layoutY="148.0" mnemonicParsing="false" onAction="#showUserListAdmin" prefHeight="150.0" prefWidth="300.0" text="Menù utenti" AnchorPane.bottomAnchor="350.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0">
+            <Button fx:id="userButton" layoutX="200.0" layoutY="21.0" mnemonicParsing="false" onAction="#showUserListAdmin" prefHeight="150.0" prefWidth="300.0" text="Menù utenti" AnchorPane.bottomAnchor="419.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="pollButton" layoutX="300.0" layoutY="388.0" mnemonicParsing="false" onAction="#showPollListAdmin" prefHeight="150.0" prefWidth="300.0" text="Menù votazioni" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0">
+            <Button fx:id="pollButton" layoutX="200.0" layoutY="191.0" mnemonicParsing="false" onAction="#showPollListAdmin" prefHeight="150.0" prefWidth="300.0" text="Menù votazioni" AnchorPane.bottomAnchor="249.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="logBtn" layoutX="200.0" layoutY="362.0" mnemonicParsing="false" onAction="#showLogWindow" prefHeight="150.0" prefWidth="300.0" text="Log" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0">
                <font>
                   <Font size="18.0" />
                </font>

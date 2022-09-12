@@ -17,7 +17,10 @@ import system.SystemEvote;
 import users.Administrator;
 
 public class AdminMenuController implements Initializable {
-
+	
+	@FXML
+	private Button logBtn;
+	
     @FXML
     private Button logoutButton;
 
@@ -89,4 +92,19 @@ public class AdminMenuController implements Initializable {
 			System.out.println(e.getMessage());
 		}
 	}
+	
+	@FXML
+    void showLogWindow(ActionEvent event) {
+		try {
+			logoutButton.getScene().getWindow().hide();
+    		Parent root = FXMLLoader.load(getClass().getResource("AdminLogList.fxml"));
+            Stage stage = new Stage();
+        	stage.setTitle("Sistema di voto elettronico - Lista dei log");
+        	stage.setScene(new Scene(root, 900, 700));
+        	stage.setResizable(false);
+        	stage.show();
+		}catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+    }
 }
