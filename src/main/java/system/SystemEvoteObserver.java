@@ -13,6 +13,6 @@ public interface SystemEvoteObserver {
 	 * @param users: una lista di oggetti User
 	 * @param polls: una lista di oggetti Poll
 	 */
-	public void update(List<User> users, List<Poll> polls);
+	public void update(List<User> users, List<Poll> polls, List<String> logs);
 	
 }
