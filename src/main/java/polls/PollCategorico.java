@@ -132,9 +132,33 @@ public class PollCategorico extends Poll{
 	 * @return true se e' valido, false altrimenti
 	 */
 	private boolean checkVoteValidity(VoteCategorico v) {
-		//TODO: implementare
-		//Ricordarsi che v potrebbe contenere SCHEDA BIANCA che non risulterebbe
-		//nella lista di candidati
+		List<PoliticalEntity> pE = v.getPreference();
+		
+		if(!((pE.get(0)) instanceof Party))
+			return false;
+		
+		if(((Party) pE.get(0)).getName().equals("SCHEDA BIANCA"))
+			return true;
+		
+		boolean found = false;
+		for(PoliticalEntity p1: pE) {
+			for(PoliticalEntity p2: candidates) {
+				if(p1 instanceof Party && p2 instanceof Party) {
+					if(((Party) p1).equals((Party) p2)){
+						found = true;
+						break;
+					}
+				}else if(p1 instanceof Candidate && p2 instanceof Candidate) {
+					if(((Candidate) p1).equals((Candidate) p2)){
+						found = true;
+						break;
+					}
+				}
+			}
+			if(!found)
+				return false;
+			found = false;
+		}
 		return true;
 	}
 	
