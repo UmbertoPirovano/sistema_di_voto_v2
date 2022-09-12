@@ -21,6 +21,7 @@ public class SystemEvote implements SystemEvoteObservable {
 	private Session session;
 	private List<User> users;
 	private List<Poll> polls;
+	private List<String> logs;
 	private List<SystemEvoteObserver> subscribers;
 	
 	private SystemEvote() {
@@ -63,8 +64,8 @@ public class SystemEvote implements SystemEvoteObservable {
 			}
 		}
 		UserDAOImpl.getInstance().addUser(u, password);
+		UserDAOImpl.getInstance().addLogEntry((Administrator) session.getUser(), "AGGIUNGE UTENTE",u);
 		refresh();
-		UserDAOImpl.getInstance().addLogEntry((Administrator) session.getUser(), "AGGIUNGI UTENTE",u);
 	}
 	
 	public void deleteUser(User u) {
@@ -73,9 +74,8 @@ public class SystemEvote implements SystemEvoteObservable {
 			throw new IllegalArgumentException("Non è possibile eliminare l'account se questo è in uso.");
 		}
 		UserDAOImpl.getInstance().deleteUser(u);
-		refresh();
 		UserDAOImpl.getInstance().addLogEntry((Administrator) session.getUser(), "ELIMINA UTENTE",u);
-		
+		refresh();
 	}
 	
 	public void addPoll(Poll p) throws IllegalArgumentException {
@@ -104,8 +104,8 @@ public class SystemEvote implements SystemEvoteObservable {
 			throw new IllegalArgumentException("Non è possibile eliminare una votazione dopo la sua data di inizio.");
 		}
 		PollDAOImpl.getInstance().removePoll(p);
-		refresh();
 		UserDAOImpl.getInstance().addLogEntry(session.getUser(), "ELIMINA VOTAZIONE",p);
+		refresh();
 	}
 	
 	public void sendVote(Poll p, Vote v) {
@@ -142,6 +142,7 @@ public class SystemEvote implements SystemEvoteObservable {
 		User u = UserDAOImpl.getInstance().login(username, password);
 		startSession(u);
 		UserDAOImpl.getInstance().addLogEntry(u, "LOGIN");
+		refresh();
 	}	
 	
 	/**
@@ -150,6 +151,7 @@ public class SystemEvote implements SystemEvoteObservable {
 	public void logout() {
 		UserDAOImpl.getInstance().addLogEntry(session.getUser(), "LOGOUT");
 		session = null;
+		refresh();
 	}
 	
 	/**
@@ -168,6 +170,11 @@ public class SystemEvote implements SystemEvoteObservable {
 		return PollDAOImpl.getInstance().getAll();
 	}
 	
+	private List<String> downloadLogs(){
+		System.out.println("Downloading logs...");
+		return UserDAOImpl.getInstance().getLog();
+	}
+	
 	/**
 	 * Aggiorna le informazioni locali relative ad utenti e votazioni sincronizzandole
 	 * con quelle contenute nel database.
@@ -175,6 +182,7 @@ public class SystemEvote implements SystemEvoteObservable {
 	public void refresh() {
 		users = downloadUsers();
 		polls = downloadPolls();
+		logs = downloadLogs();
 		informSubscribers();
 	}
 	
@@ -203,7 +211,7 @@ public class SystemEvote implements SystemEvoteObservable {
 		System.out.println("Informing subscribers...");
 		for(SystemEvoteObserver s : subscribers) {
 			if(s != null)
-				s.update(users, polls);
+				s.update(users, polls,logs);
 		}
 	}
 	
@@ -211,7 +219,7 @@ public class SystemEvote implements SystemEvoteObservable {
 		Objects.requireNonNull(o);
 		if(subscribers.contains(o)) {
 			System.out.println("Informing a subscriber...");
-			o.update(users, polls);
+			o.update(users, polls,logs);
 		} else {
 			throw new IllegalArgumentException("L'observer non risulta iscritto: " + o);
 		}
