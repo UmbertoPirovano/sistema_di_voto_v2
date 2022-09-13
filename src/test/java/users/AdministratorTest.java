@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Test;
 
 class AdministratorTest {
 
+	/**
+	 * Testa il funzionameto del metodo equals di Administrator nel caso di confronto tra due Administrator uguali.
+	 */
 	@Test
 	void testEquals() {
 		Administrator a1 = new Administrator("admin","admin");
@@ -14,6 +17,9 @@ class AdministratorTest {
 		assertEquals(a1,a2);
 	}
 	
+	/**
+	 * Testa il funzionameto del metodo equals di Administrator nel caso di confronto tra due Administrator diversi.
+	 */
 	@Test
 	void testNotEquals() {
 		Administrator a1 = new Administrator("admin","admin");

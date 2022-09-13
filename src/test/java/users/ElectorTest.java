@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Test;
 
 class ElectorTest {
 	
+	/**
+	 * Testa il funzionameto del metodo equals di Elector nel caso di confronto tra due Elector uguali.
+	 */
 	@Test
 	public void testNotEquals() {
 		Elector e1 = new Elector("mattia","mattia","Mattia","Garavaglia");
@@ -13,6 +16,9 @@ class ElectorTest {
 		assertNotEquals(e1,e2);
 	}
 	
+	/**
+	 * Testa il funzionameto del metodo equals di Elector nel caso di confronto tra due Elector diversi.
+	 */
 	@Test
 	public void testEquals() {
 		Elector e1 = new Elector("mattia","mattia","Mattia","Garavaglia");
