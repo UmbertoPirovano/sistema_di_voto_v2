@@ -119,7 +119,8 @@ public class PollCategorico extends Poll{
 	public Vote vote(List<PoliticalEntity> preferences) {
 		Objects.requireNonNull(preferences);
 		VoteCategorico v = new VoteCategorico(preferences);
-		checkVoteValidity(v);
+		if(!checkVoteValidity(v))
+			throw new IllegalArgumentException("Not valid vote");
 		return v;
 	}
 	
