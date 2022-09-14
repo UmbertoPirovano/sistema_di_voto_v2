@@ -42,9 +42,6 @@ public class ElectorVoteEditorController implements Initializable{
     private Label labelVotazione;
 
     @FXML
-    private Button logoutButton;
-
-    @FXML
     private Text nameSurnameLabel;
     
     @FXML
@@ -68,12 +65,6 @@ public class ElectorVoteEditorController implements Initializable{
     	} catch(Exception e) {
     		showErrorMessage(e.getMessage());
     	}
-    }
-
-    @FXML
-    void logout(ActionEvent event) {
-    	SystemEvote.getInstance().logout();
-    	showLoginWindow();
     }
     
     public ElectorVoteEditorController(Poll p) {
@@ -181,20 +172,6 @@ public class ElectorVoteEditorController implements Initializable{
 			}
 		} else {
 			throw new IllegalArgumentException("");
-		}
-	}
-	
-	private void showLoginWindow() {
-		try {
-			logoutButton.getScene().getWindow().hide();
-    		Parent root = FXMLLoader.load(getClass().getResource("LoginWindow.fxml"));
-            Stage stage = new Stage();
-        	stage.setTitle("Sistema di voto elettronico - Login");
-        	stage.setScene(new Scene(root, 500, 390));
-        	stage.setResizable(false);
-        	stage.show();
-		}catch (IOException e) {
-			System.out.println(e.getMessage());
 		}
 	}
 	
