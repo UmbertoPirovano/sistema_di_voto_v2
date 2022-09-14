@@ -1,10 +1,13 @@
 package gui;
 
+import java.net.URL;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -15,7 +18,7 @@ import system.SystemEvote;
 import users.Administrator;
 import users.User;
 
-public class AdminAdministratorEditorController {
+public class AdminAdministratorEditorController implements Initializable {
 
     @FXML
     private Button confirmButton;
@@ -35,12 +38,15 @@ public class AdminAdministratorEditorController {
     @FXML
     void confirm(ActionEvent event) {
     	try {
-    		String username = fieldUsername.getText();
-    		String password = fieldPassword.getText();
-    		String name = fieldName.getText();
-    		String surname = fieldSurname.getText();
+    		
+    		String username = Objects.requireNonNull(fieldUsername.getText());
+    		String password = Objects.requireNonNull(fieldPassword.getText());
+    		String name = Objects.requireNonNull(fieldName.getText());
+    		String surname = Objects.requireNonNull(fieldSurname.getText());
     		User u = new Administrator(username, password);
     		SystemEvote.getInstance().addUser(u, password);
+    	} catch(NullPointerException npe) {
+    		showErrorMessage("Non sono stati settati tutti i campi");
     	} catch(Exception e) {
     		showErrorMessage(e.getMessage());
     	}
@@ -64,6 +70,15 @@ public class AdminAdministratorEditorController {
 			showErrorMessage(e.getMessage());
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		confirmButton.setText(null);
+		fieldName.setText(null);
+		fieldPassword.setText(null);
+		fieldSurname.setText(null);
+		fieldUsername.setText(null);
 	}
 
 }

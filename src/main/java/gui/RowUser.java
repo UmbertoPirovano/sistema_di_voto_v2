@@ -3,10 +3,14 @@ package gui;
 import java.util.Objects;
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 import system.SystemEvote;
 import users.Administrator;
 import users.Elector;
@@ -48,7 +52,11 @@ public class RowUser implements Comparable<RowUser> {
 	}
 
 	private void deleteUser() {
-		SystemEvote.getInstance().deleteUser(user);
+		try {
+			SystemEvote.getInstance().deleteUser(user);
+		}catch(IllegalArgumentException e) {
+			showErrorMessage("errore\n" + e.getMessage());
+		}
 	}
 
 	public User getUser() {
@@ -73,6 +81,26 @@ public class RowUser implements Comparable<RowUser> {
 	
 	public ButtonBar getButtonBar() {
 		return buttonBar;
+	}
+	
+	private void showErrorMessage(String s) {
+		Objects.requireNonNull(s);
+		String msg = "ERROR:\n\n";
+		msg += s;
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("GeneralMessage.fxml"));
+    		GeneralMessageController controller = new GeneralMessageController(msg);
+    		loader.setController(controller);
+    		Parent root = loader.load();
+            Stage stage = new Stage();
+        	stage.setTitle("ERROR");
+        	stage.setScene(new Scene(root, 600, 400));
+        	stage.setResizable(false);
+        	stage.show();
+		} catch (Exception e) {
+			showErrorMessage(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 
 	@Override

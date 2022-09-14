@@ -45,18 +45,20 @@ public class AdminElectorEditorController implements Initializable {
     @FXML
     void confirm(ActionEvent event) {
     	try {
-    		String cf = fieldCf.getText();
-    		String password = fieldPassword.getText();
-    		String name = fieldName.getText();
-    		String surname = fieldSurname.getText();
-    		String gender = fieldGender.getValue();
-    		String birthDay = fieldBirthDay.getText();
+    		String cf = Objects.requireNonNull(fieldCf.getText());
+    		String password = Objects.requireNonNull(fieldPassword.getText());
+    		String name = Objects.requireNonNull(fieldName.getText());
+    		String surname = Objects.requireNonNull(fieldSurname.getText());
+    		String gender = Objects.requireNonNull(fieldGender.getValue());
+    		String birthDay = Objects.requireNonNull(fieldBirthDay.getText());
     		if(!checkFiscalCode(name,surname,birthDay,gender,cf)) {
     			showErrorMessage((new IllegalArgumentException("Formato del codice fiscale errato")).getMessage());
     			return;
     		}
     		User u = new Elector(cf,password,name,surname);
     		SystemEvote.getInstance().addUser(u, password);
+    	} catch(NullPointerException npe) {
+    		showErrorMessage("Non sono stati settati tutti i campi");
     	} catch(Exception e) {
     		showErrorMessage(e.getMessage());
     	}
@@ -66,6 +68,11 @@ public class AdminElectorEditorController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		fieldGender.getItems().addAll("M", "F");
 		fieldGender.setValue("M");
+		fieldBirthDay.setText(null);
+		fieldName.setText(null);
+		fieldSurname.setText(null);
+		fieldCf.setText(null);
+		fieldPassword.setText(null);
 	}
 
 	/**

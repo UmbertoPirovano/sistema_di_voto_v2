@@ -182,7 +182,9 @@ public class AdminPollEditorController implements Initializable {
 	    	Poll p = new PollReferendum(name, description, startDate, endDate, quorum);
 	    	addPoll(p);
 	    	referendumAddButton.getScene().getWindow().hide();
-    	} catch(Exception e) {
+    	} catch(NullPointerException npe) {
+    		showErrorMessage("Non sono stati inseriti tutti i dati");
+    	}catch(Exception e) {
     		showErrorMessage(e.getMessage());
     	}
     }
@@ -200,7 +202,9 @@ public class AdminPollEditorController implements Initializable {
 	    	addPoll(p);
 	    	showAddCandidateWindow(p, ordinaleTypeChoice.getValue().equals("A partiti"));
 	    	ordinaleAddButton.getScene().getWindow().hide();
-    	} catch(Exception e) {
+    	} catch(NullPointerException npe) {
+    		showErrorMessage("Non sono stati inseriti tutti i dati");
+    	}catch(Exception e) {
     		showErrorMessage(e.getMessage());
     	}
     }
@@ -219,6 +223,8 @@ public class AdminPollEditorController implements Initializable {
 	    	addPoll(p);
 	    	showAddCandidateWindow(p, categoricoTypeChoice.getValue().equals("A partiti"));
 	    	categoricoAddButton.getScene().getWindow().hide();
+    	}catch(NullPointerException npe) {
+    		showErrorMessage("Non sono stati inseriti tutti i dati");
     	}catch(Exception e) {
     		showErrorMessage(e.getMessage());
     	}
