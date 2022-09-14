@@ -237,7 +237,7 @@ public class UserDAOImpl implements UserDAO {
 	public List<String> getLog(){
 		try {
 			List<String> logs = new ArrayList<>();
-			PreparedStatement st = connection.prepareStatement("SELECT * FROM log ORDER BY timestamp DESC LIMIT 10;");
+			PreparedStatement st = connection.prepareStatement("SELECT * FROM log ORDER BY timestamp DESC;");
 			ResultSet res = st.executeQuery();
 			while(res.next()) {
 				String log=res.getTimestamp(3) +": Utente " + res.getString(1);

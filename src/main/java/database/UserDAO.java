@@ -66,7 +66,7 @@ public interface UserDAO {
 	public void addLogEntry(Administrator user, String azione, User other);
 	
 	/**
-	 * Invia al database le informazioni necessarie a creare una nuova entry di interazione con una votazione per la tabella dei log.
+	 * Invia al database le informazioni necessarie a creare una nuova entry di gestione di una votazione per la tabella dei log.
 	 * @param user Un utente del sistema.
 	 * @param azione Una breve descrizione dell'azione svolta da user.
 	 * @param p La votazione con cui interagisce user.
@@ -74,7 +74,7 @@ public interface UserDAO {
 	public void addLogEntry(User user, String azione, Poll p);
 	
 	/**
-	 * Restituisce una lista di stringhe contenenti i primi dieci log log reperiti dal database. I log vengono ordinati in ordine decrescente
+	 * Restituisce una lista di stringhe contenenti i log log reperiti dal database. I log vengono ordinati in ordine decrescente
 	 * rispetto al loro timestamp.
 	 * @return La lista di stringhe log.
 	 */
