@@ -25521,9 +25521,9 @@
 												"$ref": "AAAAAAGCy1iQM9jYaxA="
 											},
 											"font": "Arial;13;0",
-											"left": 248.72998046875,
+											"left": 246.55908203125,
 											"top": 93,
-											"width": 173.68798828125,
+											"width": 159.6025390625,
 											"height": 13,
 											"text": "AmministratoreCreaVotazione"
 										},
@@ -25536,7 +25536,7 @@
 											"font": "Arial;13;1",
 											"left": 229,
 											"top": 93,
-											"width": 14.72998046875,
+											"width": 12.55908203125,
 											"height": 13,
 											"text": "sd"
 										}
@@ -25915,9 +25915,9 @@
 												"$ref": "AAAAAAGCy1sVadmqyzA="
 											},
 											"font": "Arial;13;0",
-											"left": 481.1708984375,
+											"left": 480.42822265625,
 											"top": 125,
-											"width": 329.8291015625,
+											"width": 330.57177734375,
 											"height": 13,
 											"text": "LoginUtente"
 										},
@@ -25930,7 +25930,7 @@
 											"font": "Arial;13;1",
 											"left": 445,
 											"top": 125,
-											"width": 16.1708984375,
+											"width": 15.42822265625,
 											"height": 13,
 											"text": "ref"
 										}
@@ -26206,9 +26206,9 @@
 												"$ref": "AAAAAAGC2gPw8NoaBHI="
 											},
 											"font": "Arial;13;0",
-											"left": 427.578125,
+											"left": 426.11181640625,
 											"top": 245,
-											"width": 73.96630859375,
+											"width": 68.15185546875,
 											"height": 13,
 											"text": "(0,polls.size)"
 										},
@@ -26221,7 +26221,7 @@
 											"font": "Arial;13;1",
 											"left": 397,
 											"top": 245,
-											"width": 25.578125,
+											"width": 24.11181640625,
 											"height": 13,
 											"text": "loop"
 										},
@@ -26531,7 +26531,7 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": 451.51904296875,
+											"left": 447.869140625,
 											"top": 333,
 											"width": 1,
 											"height": 13
@@ -26545,7 +26545,7 @@
 											"font": "Arial;13;1",
 											"left": 413,
 											"top": 333,
-											"width": 33.51904296875,
+											"width": 29.869140625,
 											"height": 13,
 											"text": "break"
 										},
@@ -26578,7 +26578,7 @@
 															"font": "Arial;13;0",
 															"left": 428,
 															"top": 366,
-															"width": 70.0908203125,
+															"width": 65.1904296875,
 															"height": 13,
 															"text": "[res == true]"
 														}
@@ -27114,7 +27114,7 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": 451.51904296875,
+											"left": 447.869140625,
 											"top": 517,
 											"width": 1,
 											"height": 13
@@ -27128,7 +27128,7 @@
 											"font": "Arial;13;1",
 											"left": 413,
 											"top": 517,
-											"width": 33.51904296875,
+											"width": 29.869140625,
 											"height": 13,
 											"text": "break"
 										},
@@ -27161,7 +27161,7 @@
 															"font": "Arial;13;0",
 															"left": 428,
 															"top": 550,
-															"width": 138.607421875,
+															"width": 127.81005859375,
 															"height": 13,
 															"text": "[date < Timestamp.now]"
 														}
@@ -50683,7 +50683,7 @@
 			"_parent": {
 				"$ref": "AAAAAAFF+h6SjaM2Hec="
 			},
-			"name": "Model1",
+			"name": "Deployment",
 			"ownedElements": [
 				{
 					"_type": "UMLDeploymentDiagram",
@@ -50747,9 +50747,9 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"width": 80.9072265625,
+											"width": 107.63720703125,
 											"height": 13,
-											"text": "(from Model1)"
+											"text": "(from Deployment)"
 										},
 										{
 											"_type": "LabelView",
@@ -50917,9 +50917,9 @@
 											"font": "Arial;13;0",
 											"left": -80,
 											"top": -144,
-											"width": 80.9072265625,
+											"width": 107.63720703125,
 											"height": 13,
-											"text": "(from Model1)"
+											"text": "(from Deployment)"
 										},
 										{
 											"_type": "LabelView",
@@ -51098,9 +51098,9 @@
 											"font": "Arial;13;0",
 											"left": -16,
 											"top": -96,
-											"width": 80.9072265625,
+											"width": 107.63720703125,
 											"height": 13,
-											"text": "(from Model1)"
+											"text": "(from Deployment)"
 										},
 										{
 											"_type": "LabelView",
@@ -51370,9 +51370,9 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"width": 80.9072265625,
+											"width": 107.63720703125,
 											"height": 13,
-											"text": "(from Model1)"
+											"text": "(from Deployment)"
 										},
 										{
 											"_type": "LabelView",
@@ -51536,9 +51536,9 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"width": 80.9072265625,
+											"width": 107.63720703125,
 											"height": 13,
-											"text": "(from Model1)"
+											"text": "(from Deployment)"
 										},
 										{
 											"_type": "LabelView",
@@ -51704,9 +51704,9 @@
 											"visible": false,
 											"font": "Arial;13;0",
 											"left": -80,
-											"width": 80.9072265625,
+											"width": 107.63720703125,
 											"height": 13,
-											"text": "(from Model1)"
+											"text": "(from Deployment)"
 										},
 										{
 											"_type": "LabelView",
@@ -51975,9 +51975,9 @@
 											"font": "Arial;13;0",
 											"left": 32,
 											"top": 328,
-											"width": 80.9072265625,
+											"width": 107.63720703125,
 											"height": 13,
-											"text": "(from Model1)"
+											"text": "(from Deployment)"
 										},
 										{
 											"_type": "LabelView",
