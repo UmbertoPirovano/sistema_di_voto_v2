@@ -1,0 +1,7 @@
+politics\PartyTest.class
+polls\PollCategoricoTest.class
+users\ElectorTest.class
+polls\PollOrdinaleTest.class
+polls\PollReferendumTest.class
+politics\CandidateTest.class
+users\AdministratorTest.class
