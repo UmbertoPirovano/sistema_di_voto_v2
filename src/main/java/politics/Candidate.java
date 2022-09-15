@@ -9,6 +9,7 @@ public class Candidate implements PoliticalEntity{
 	private /*@ spec_public @*/ Party party;
 	
 	//@ requires name != null && surname != null;
+	//@ ensures this.name == name && this.surname == surname;
 	public Candidate(String name, String surname) {
 		this.name = Objects.requireNonNull(name);
 		this.surname = Objects.requireNonNull(surname);
@@ -16,20 +17,24 @@ public class Candidate implements PoliticalEntity{
 	}
 	
 	//@ requires name != null && surname != null && party != null;
+	//@ ensures this.name == name && this.surname == surname && this.party == party;
 	public Candidate(String name, String surname, Party party) {
 		this.name = Objects.requireNonNull(name);
 		this.surname = Objects.requireNonNull(surname);
 		this.party = party;
 	}
 	
+	//@ ensures \result == this.name;
 	public String getName() {
 		return name;
 	}
 	
+	//@ ensures \result == this.surname;
 	public String getSurname() {
 		return surname;
 	}
 	
+	//@ ensures \result == this.party
 	public Party getParty() {
 		return party;
 	}

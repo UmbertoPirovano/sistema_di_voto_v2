@@ -12,7 +12,7 @@ public class PollOrdinale extends Poll {
 	/*@ invariant candidates != null && votes != null && (\forall int i; i >= 0 && i < candidates.length; candidates[i] != null) &&
 	 @ (\forall int j; j >= 0 && j < votes.length; votes[j] != null) 
 	 @*/
-	private boolean absoluteMajority;
+	private /*@ spec_public @*/ boolean absoluteMajority;
 	private List<PoliticalEntity> candidates;
 	private List<VoteOrdinale> votes;
 	
@@ -23,6 +23,7 @@ public class PollOrdinale extends Poll {
 		votes = new ArrayList<VoteOrdinale>();
 	}
 	
+	// @ ensures this.absoluteMajority == absoluteMajority;
 	public PollOrdinale(String name, String description, Timestamp startDate, Timestamp endDate, boolean absoluteMajority) {
 		super(name, description, startDate, endDate);
 		this.absoluteMajority = absoluteMajority;
@@ -30,11 +31,13 @@ public class PollOrdinale extends Poll {
 		votes = new ArrayList<VoteOrdinale>();
 	}
 	
+	//@ ensures \result == this.absoluteMajority;
 	public boolean getAbsoluteMajority() {
 		return absoluteMajority;
 	}
 	
 	//@ requires v != null;
+	//@ ensures (\exists int i; i >= 0 && i < votes.size(); votes(i) == v);
 	/**
 	 * Aggiunge alla lista di voti registrati il voto v fornito come argomento.
 	 * @param v: un oggetto di tipo VoteOrdinale
@@ -45,6 +48,7 @@ public class PollOrdinale extends Poll {
 	}
 	
 	//@ requires e != null;
+	//@ ensures (\exists int i; i >= 0 && i < candidates.size(); candidates.get(i) == e);
 	/**
 	 * Aggiunge alla lista di candidati della votazione this il candidato fornito
 	 * come argomento se questo non � gi� presente, altrimenti non fa nulla.
@@ -56,7 +60,8 @@ public class PollOrdinale extends Poll {
 		candidates.add(e);
 	}
 	
-	//@ requires listOfCandidates != null && (\forall int i; i >= 0 && i < listOfCandidates.length; listOfCandidates[i] != null)
+	//@ requires listOfCandidates != null && (\forall int i; i >= 0 && i < listOfCandidates.length; listOfCandidates[i] != null);
+	//@ ensures (\forall int j; j >= 0 && j < listOfCandidates.size(); (\exists int i; i >= 0 && i < candidates.size(); candidates.get(i) == listOfCandidates.get(j)));
 	/**
 	 * Aggiunge ai candidati gi� registrati nella votazione this quelli presenti
 	 * nella lista fornita come argomento escludendo quelli gi� presenti.
@@ -69,6 +74,7 @@ public class PollOrdinale extends Poll {
 		}
 	}
 	
+	//@ ensures \result == this.candidates;
 	/**
 	 * Restituisce la lista di candidati della votazione this.
 	 * @return una lista di oggetti PoliticalEntity
@@ -96,8 +102,10 @@ public class PollOrdinale extends Poll {
 	 * Classe necessaria a rappresentare un voto della votazione di tipo PollOrdinale.
 	 */
 	public class VoteOrdinale implements Vote{
-		private List<PoliticalEntity> rankedCandidates;
+		private /*@ spec_public @*/ List<PoliticalEntity> rankedCandidates;
 		
+		//@ requires rankedCandidates != null;
+		//@ ensures rankedCandidates.size == 0 || this.rankedCandidates == rankedCandidates;
 		public VoteOrdinale(List<PoliticalEntity> rankedCandidates) {
 			this.rankedCandidates = Objects.requireNonNull(rankedCandidates);
 			if(this.rankedCandidates.size() == 0) {
@@ -105,6 +113,7 @@ public class PollOrdinale extends Poll {
 			}
 		}
 		
+		//@ ensures \result == this.rankedCandidates;
 		public List<PoliticalEntity> getPreference(){
 			return rankedCandidates;
 		}

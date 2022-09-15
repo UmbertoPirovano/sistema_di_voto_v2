@@ -10,8 +10,8 @@ import politics.PoliticalEntity;
 
 public class PollReferendum extends Poll {
 	//@ invariant votes != null && (\forall int j; j >= 0 && j < votes.length; votes[j] != null);
-	private boolean quorum;
-	private List<VoteReferendum> votes;
+	private /*@ spec_public @*/ boolean quorum;
+	private /*@ spec_public @*/ List<VoteReferendum> votes;
 	
 	public PollReferendum(String name, String description, Timestamp startDate, Timestamp endDate) {
 		super(name, description, startDate, endDate);
@@ -19,17 +19,20 @@ public class PollReferendum extends Poll {
 		votes = new ArrayList<VoteReferendum>();
 	}
 	
+	//@ ensures this.quorum = quorum;
 	public PollReferendum(String name, String description, Timestamp startDate, Timestamp endDate, boolean quorum) {
 		super(name, description, startDate, endDate);
 		this.quorum = quorum;
 		votes = new ArrayList<VoteReferendum>();
 	}
 	
+	//@ ensures \result == this.quorum;
 	public boolean getQuorum() {
 		return quorum;
 	}
 	
-	//@requires v != null
+	//@requires v != null;
+	//@ ensures (\exists int i; i >= 0 && i < votes.size(); votes(i) == v);
 	public void addVote(VoteReferendum v) {
 		Objects.requireNonNull(v);
 		votes.add(v);
@@ -55,8 +58,9 @@ public class PollReferendum extends Poll {
 	 * Oggetto necessario a rappresentare il voto per una votazione di tipo PollReferendum
 	 */
 	public class VoteReferendum implements Vote{
-		private final Party choice;
+		private /*@ spec_public @*/ final Party choice;
 		
+		//@ ensures party != null;
 		public VoteReferendum(Boolean value) {
 			if(value == null) {
 				this.choice = new Party("SCHEDA BIANCA");

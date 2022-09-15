@@ -11,12 +11,12 @@ import politics.PoliticalEntity;
 
 public class PollCategorico extends Poll{
 	/*@ invariant candidates != null && votes != null && (\forall int i; i >= 0 && i < candidates.length; candidates[i] != null) &&
-	 @ (\forall int j; j >= 0 && j < votes.length; votes[j] != null) 
+	 @ (\forall int j; j >= 0 && j < votes.length; votes[j] != null); 
 	 @*/
-	private boolean absoluteMajority;
-	private boolean withPreferences;
-	private List<PoliticalEntity> candidates;
-	private List<VoteCategorico> votes;
+	private /*@ spec_public @*/ boolean absoluteMajority;
+	private /*@ spec_public @*/ boolean withPreferences;
+	private /*@ spec_public @*/ List<PoliticalEntity> candidates;
+	private /*@ spec_public @*/ List<VoteCategorico> votes;
 	
 	public PollCategorico(String name, String description, Timestamp startDate, Timestamp endDate) {
 		super(name, description, startDate, endDate);
@@ -26,6 +26,7 @@ public class PollCategorico extends Poll{
 		votes = new ArrayList<VoteCategorico>();
 	}
 	
+	// @ ensures this.absoluteMajority == absoluteMajority && this.withPreferences == withPreferences;
 	public PollCategorico(String name, String description, Timestamp startDate, Timestamp endDate, boolean absoluteMajority, boolean withPreferences) {
 		super(name, description, startDate, endDate);
 		this.absoluteMajority = absoluteMajority;
@@ -34,14 +35,17 @@ public class PollCategorico extends Poll{
 		votes = new ArrayList<VoteCategorico>();
 	}
 	
+	//@ ensures \result == this.absoluteMajority;
 	public boolean getAbsoluteMajority() {
 		return absoluteMajority;
 	}
 	
+	//@ ensures \result == this.withPreferences;
 	public boolean getWithPreferences() {
 		return withPreferences;
 	}
 	
+	//@ ensures \result == this.candidates;
 	/**
 	 * Restituisce una lista contenente tutte le entit� politiche candidate nella votazione this.
 	 * @return Una lista di oggetti PoliticalEntity
@@ -50,6 +54,14 @@ public class PollCategorico extends Poll{
 		return candidates;
 	}
 	
+	public /*@ pure @*/ static boolean isParty(PoliticalEntity e) {
+		return e instanceof Party;
+	}
+	
+	/*@ ensures (\forall int i; i >= 0 && i < \result.size(); isParty(\result.get(i))) && 
+	(\forall int i; i >= 0 && i < candidates.size(); ((isParty(candidates.get(i))) ==> 
+	(\exists int i; i >= 0 && i < \result.size(); result.get(i) == candidates.get(i))));
+	@*/
 	/**
 	 * Restituisce la lista dei partiti candidati nella votazione this.
 	 * @return Una lista di oggetti Party
@@ -65,6 +77,10 @@ public class PollCategorico extends Poll{
 		return party;
 	}
 	
+	/*@ ensures (\forall int i; i >= 0 && i < \result.size(); !isParty(\result.get(i))) && 
+	(\forall int i; i >= 0 && i < candidates.size(); ((!isParty(candidates.get(i))) ==> 
+	(\exists int i; i >= 0 && i < \result.size(); result.get(i) == candidates.get(i))));
+	@*/
 	/**
 	 * Restituisce una lista dei politici candidati nella votazione this.
 	 * @return Una lista di oggetti Candidate
@@ -81,6 +97,7 @@ public class PollCategorico extends Poll{
 	}
 	
 	//@ requires v != null;
+	//@ ensures (\exists int i; i >= 0 && i < votes.size(); votes(i) == v);
 	/**
 	 * Aggiunge alla lista di voti registrati il voto v fornito come argomento.
 	 * @param v: un oggetto di tipo VoteCategorico
@@ -91,6 +108,7 @@ public class PollCategorico extends Poll{
 	}
 	
 	//@ requires e != null;
+	//@ ensures (\exists int i; i >= 0 && i < candidates.size(); candidates.get(i) == e);
 	/**
 	 * Aggiunge alla lista di candidati della votazione this il candidato fornito
 	 * come argomento se questo non � gi� presente, altrimenti non fa nulla.
@@ -102,7 +120,8 @@ public class PollCategorico extends Poll{
 		candidates.add(e);
 	}
 	
-	//@ requires listOfCandidates != null && (\forall int i; i >= 0 && i < listOfCandidates.length; listOfCandidates[i] != null)
+	//@ requires listOfCandidates != null && (\forall int i; i >= 0 && i < listOfCandidates.length; listOfCandidates[i] != null);
+	//@ ensures (\forall int j; j >= 0 && j < listOfCandidates.size(); (\exists int i; i >= 0 && i < candidates.size(); candidates.get(i) == listOfCandidates.get(j)));
 	/**
 	 * Aggiunge ai candidati gi� registrati nella votazione this quelli presenti
 	 * nella lista fornita come argomento escludendo quelli gi� presenti.
@@ -111,11 +130,11 @@ public class PollCategorico extends Poll{
 	public void addCandidate(List<PoliticalEntity> listOfCandidates) {
 		Objects.requireNonNull(listOfCandidates);
 		for(PoliticalEntity e : listOfCandidates) {
-			addCandidate(e);
+			addCandidate(Objects.requireNonNull(e));
 		}
 	}	
 	
-	//@ requires preferences != null && (\forall int i; i >= 0 && i < preferences.length; preferences[i] != null)
+	//@ requires preferences != null && (\forall int i; i >= 0 && i < preferences.length; preferences[i] != null);
 	public Vote vote(List<PoliticalEntity> preferences) {
 		Objects.requireNonNull(preferences);
 		VoteCategorico v = new VoteCategorico(preferences);
@@ -172,9 +191,11 @@ public class PollCategorico extends Poll{
 	 */
 	public class VoteCategorico implements Vote{
 		
-		private Party party;
-		private List<Candidate> candidates;
+		private /*@ spec_public @*/ Party party;
+		private /*@ spec_public @*/ List<Candidate> candidates;
 		
+		//@ requires politics != null && (\forall int j; j >= 0 && j < politics.length; politics[j] != null);
+		//@ ensures this.party != null || this.candidates == politics;
 		public VoteCategorico(List<PoliticalEntity> politics) {
 			Objects.requireNonNull(politics);
 			this.party = null;

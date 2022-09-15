@@ -14,6 +14,7 @@ public abstract class Poll {
 	private Timestamp endDate;
 	
 	//@ requires name != null && description != null && startDate != null && endDate != null;
+	//@ ensures this.name == name && this.description == description && this.startDate = startDate && this.endDate == endDate;
 	public Poll(String name, String description, Timestamp startDate, Timestamp endDate) {
 		this.name = Objects.requireNonNull(name);
 		this.description = Objects.requireNonNull(description);
@@ -26,18 +27,22 @@ public abstract class Poll {
 		return startDate.before(endDate);
 	}
 	
+	//@ ensures \result == this.name;
 	public String getName() {
 		return name;
 	}
 	
+	//@ ensures \result == this.description;
 	public String getDescription() {
 		return description;
 	}
 	
+	//@ ensures \result == this.startDate;
 	public Timestamp getStartDate() {
 		return startDate;
 	}
 	
+	//@ ensures \result == this.endDate;
 	public Timestamp getEndDate() {
 		return endDate;
 	}
