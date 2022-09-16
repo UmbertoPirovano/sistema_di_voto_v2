@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.Objects;
 
 public class DatabaseConnection {
-	private static String database = "sistema_di_voto_v2";
+	private static String database = "sistema_di_voto";
 	private static String user = "root";
 	private static String password = "";
 	
